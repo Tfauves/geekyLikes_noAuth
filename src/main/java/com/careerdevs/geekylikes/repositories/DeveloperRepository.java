@@ -1,4 +1,8 @@
 package com.careerdevs.geekylikes.repositories;
 
-public interface DeveloperRepository             {
+import com.careerdevs.geekylikes.models.Developer;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface DeveloperRepository extends JpaRepository<Developer, Long> {
 }

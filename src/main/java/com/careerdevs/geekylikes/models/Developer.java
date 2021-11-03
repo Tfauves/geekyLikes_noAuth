@@ -4,7 +4,7 @@ package com.careerdevs.geekylikes.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.List;
+
 
 @Entity
 public class Developer {
@@ -12,16 +12,26 @@ public class Developer {
     private String name;
     private String email;
     private Integer cohort;
-    private List<String> languages;
+    private String[] languages;
+
+
 
     public Developer () {}
 
-    public Developer(String name, String email, Integer cohort, List<String> languages) {
+
+    public Developer(String name, String email, Integer cohort, String[] languages) {
         this.name = name;
         this.email = email;
         this.cohort = cohort;
         this.languages = languages;
     }
+
+
+
+
+
+
+
 
     public Long getId() {
         return id;
@@ -55,15 +65,12 @@ public class Developer {
         this.cohort = cohort;
     }
 
-    public List<String> getLanguages() {
+    public String[] getLanguages() {
         return languages;
     }
 
-    public void setLanguages(List<String> languages) {
+    public void setLanguages(String[] languages) {
         this.languages = languages;
     }
 
-    public void addLanguage(String lang) {
-        languages.add(lang);
-    }
 }
