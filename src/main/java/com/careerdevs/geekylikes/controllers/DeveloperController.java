@@ -3,6 +3,7 @@ package com.careerdevs.geekylikes.controllers;
 import com.careerdevs.geekylikes.models.Developer;
 import com.careerdevs.geekylikes.repositories.DeveloperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +28,15 @@ public class DeveloperController {
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/cohort/{cohort}")
+    public ResponseEntity<List<Developer>> getDevByCohort(@PathVariable Integer cohort) {
+        return new ResponseEntity<>(repository.findAllByCohort(cohort, Sort.by("name")), HttpStatus.OK);
+    }
+
     @PostMapping
-    public @ResponseBody Developer createDeveloper(@RequestBody Developer newDeveloper) {
-        return repository.save(newDeveloper);
+    public ResponseEntity<Developer> createDeveloper(@RequestBody Developer newDeveloper) {
+        //return repository.save(newDeveloper);
+        return new ResponseEntity<>(repository.save(newDeveloper), HttpStatus.CREATED);
     }
 
 
