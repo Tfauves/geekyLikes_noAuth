@@ -4,6 +4,7 @@ import com.careerdevs.geekylikes.models.Developer;
 import com.careerdevs.geekylikes.repositories.DeveloperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -21,15 +22,16 @@ public class DeveloperController {
        return repository.findAll();
     }
 
+    @GetMapping("/{id}")
+    public @ResponseBody Developer getOnrById(@PathVariable Long id) {
+        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
     @PostMapping
     public @ResponseBody Developer createDeveloper(@RequestBody Developer newDeveloper) {
         return repository.save(newDeveloper);
     }
 
-    @GetMapping("/{id}")
-    public @ResponseBody Developer getOnrById(@PathVariable Long id) {
-        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
 
     @PutMapping("/{id}")
     public @ResponseBody Developer updateEmployee(@PathVariable Long id, @RequestBody Developer updates) {
@@ -43,11 +45,12 @@ public class DeveloperController {
         return repository.save(developer);
     }
 
-//    @DeleteMapping("/{id}")
-//    public ResponseEnity<String> destroyDev(@PathVariable Long id) {
-//        resp
-//
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> destroyDev(@PathVariable Long id) {
+        repository.deleteById(id);
+        return new ResponseEntity<>("Deleted", HttpStatus.OK);
+    }
+
 
 
 }
