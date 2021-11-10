@@ -15,6 +15,8 @@ public class Geekout {
     private String title;
     private String content;
 
+    public Geekout() {}
+
     public Geekout(Developer developer, String title, String content) {
         this.developer = developer;
         this. title = title;

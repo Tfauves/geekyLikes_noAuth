@@ -12,8 +12,9 @@ public class Developer {
     private String email;
     private Integer cohort;
     private String[] languages;
+
     @OneToMany
-    @JoinColumn(name = "develpoer_id", referencedColumnName = "id")
+    @JoinColumn(name = "developer_id", referencedColumnName = "id")
     private List<Geekout> geekouts;
 
     public Developer () {}

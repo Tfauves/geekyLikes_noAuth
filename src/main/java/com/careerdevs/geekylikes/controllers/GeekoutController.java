@@ -21,7 +21,7 @@ public class GeekoutController {
         return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
     }
 
-    @PutMapping
+    @PostMapping
     public ResponseEntity<Geekout> createOne(@RequestBody Geekout geekout) {
         System.out.println(geekout.getDeveloper().getId());
 
