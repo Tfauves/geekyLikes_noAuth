@@ -27,6 +27,7 @@ public class LanguageController {
     @GetMapping("/{id}")
     public ResponseEntity<Language> getById(@PathVariable Long id) {
        Optional<Language> language = repository.findById(id);
+
        if (language.isEmpty()) {
            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
        }

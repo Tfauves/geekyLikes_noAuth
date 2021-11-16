@@ -23,7 +23,7 @@ public class Developer {
             joinColumns = @JoinColumn(name = "developer_id"),
             inverseJoinColumns = @JoinColumn(name = "language_id")
     )
-    private Set<Language> languages;
+    public Set<Language> languages;
 
     public Developer () {}
 
