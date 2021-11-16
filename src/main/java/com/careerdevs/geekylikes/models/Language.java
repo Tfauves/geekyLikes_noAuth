@@ -23,9 +23,10 @@ public class Language {
     public Language() {
     }
 
-    public Language(String name, String tag) {
+    public Language(String name, String tag, Set<Developer> developers) {
         this.name = name;
         this.tag = tag;
+        this.developers = developers;
     }
 
     public Long getId() {
