@@ -32,5 +32,10 @@ public class LanguageController {
        return new ResponseEntity<>(language.get(), HttpStatus.OK);
     }
 
+    @PostMapping
+    public Language createOne(@RequestBody Language newLanguage) {
+        return repository.save(newLanguage);
+    }
+
 
 }

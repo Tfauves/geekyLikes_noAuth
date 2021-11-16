@@ -54,7 +54,14 @@ public class DeveloperController {
     }
 
     @PutMapping("/language")
-    public ResponseEntity<>
+    public ResponseEntity<Developer> addLanguage(@RequestBody Developer updates) {
+        Developer developer = repository.findById(updates.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        developer.setLanguages().addAll(updates.getLanguages())
+        return repository.
+
+        ;
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> destroyDev(@PathVariable Long id) {

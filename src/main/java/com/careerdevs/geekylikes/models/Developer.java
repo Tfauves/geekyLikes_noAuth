@@ -67,9 +67,6 @@ public class Developer {
         this.cohort = cohort;
     }
 
-    public List<Geekout> getGeekouts() {
-        return geekouts;
-    }
 
     public void setGeekouts(List<Geekout> geekouts) {
         this.geekouts = geekouts;
