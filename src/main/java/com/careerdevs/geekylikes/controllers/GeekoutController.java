@@ -23,7 +23,7 @@ public class GeekoutController {
         return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/dev/{devId")
+    @GetMapping("/dev/{devId}")
     public ResponseEntity<List<Geekout>> getByDevId(@PathVariable Long devId) {
         return new ResponseEntity<>(repository.findByDeveloperId(devId), HttpStatus.OK);
     }

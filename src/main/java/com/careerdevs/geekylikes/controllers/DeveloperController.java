@@ -53,6 +53,9 @@ public class DeveloperController {
         return repository.save(developer);
     }
 
+    @PutMapping("/language")
+    public ResponseEntity<>
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> destroyDev(@PathVariable Long id) {
         repository.deleteById(id);
