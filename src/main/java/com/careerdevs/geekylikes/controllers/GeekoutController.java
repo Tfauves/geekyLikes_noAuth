@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/geekouts")
 public class GeekoutController {
@@ -21,10 +23,26 @@ public class GeekoutController {
         return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/dev/{devId")
+    public ResponseEntity<List<Geekout>> getByDevId(@PathVariable Long devId) {
+        return new ResponseEntity<>(repository.findByDeveloperId(devId), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Geekout> createOne(@RequestBody Geekout geekout) {
         System.out.println(geekout.getDeveloper().getId());
 
         return new ResponseEntity<>(repository.save(geekout), HttpStatus.CREATED);
+    }
+
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Geekout> updateOne(@RequestBody Geekout updateData) {
+//
+//    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> destroyOne(@PathVariable Long id) {
+        repository.deleteById(id);
+        return new ResponseEntity<>("Deleted", HttpStatus.OK);
     }
 }
