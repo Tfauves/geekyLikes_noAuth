@@ -40,6 +40,15 @@ public class DeveloperController {
         return new ResponseEntity<>(repository.save(newDeveloper), HttpStatus.CREATED);
     }
 
+    @PutMapping("/language")
+    public Developer addLanguage(@RequestBody Developer updates) {
+        Developer developer = repository.findById(updates.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        developer.languages().addAll(updates.languages());
+        return repository.save(developer);
+
+        ;
+    }
 
     @PutMapping("/{id}")
     public @ResponseBody Developer updateEmployee(@PathVariable Long id, @RequestBody Developer updates) {
@@ -48,20 +57,11 @@ public class DeveloperController {
         if (updates.getName() != null) developer.setName(updates.getName());
         if (updates.getEmail() != null) developer.setEmail(updates.getEmail());
         if (updates.getCohort() != null) developer.setCohort(updates.getCohort());
-        if (updates.getLanguages() != null) developer.setLanguages(updates.getLanguages());
+        if (updates.languages != null) developer.languages = updates.languages;
 
         return repository.save(developer);
     }
 
-    @PutMapping("/language")
-    public ResponseEntity<Developer> addLanguage(@RequestBody Developer updates) {
-        Developer developer = repository.findById(updates.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        developer.setLanguages().addAll(updates.getLanguages())
-        return repository.
-
-        ;
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> destroyDev(@PathVariable Long id) {

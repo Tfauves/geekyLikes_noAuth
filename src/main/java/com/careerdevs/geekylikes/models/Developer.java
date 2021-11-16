@@ -67,16 +67,4 @@ public class Developer {
         this.cohort = cohort;
     }
 
-
-    public void setGeekouts(List<Geekout> geekouts) {
-        this.geekouts = geekouts;
-    }
-
-    public Set<Language> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(Set<Language> languages) {
-        this.languages = languages;
-    }
 }
