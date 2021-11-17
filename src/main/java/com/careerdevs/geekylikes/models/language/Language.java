@@ -1,10 +1,17 @@
 package com.careerdevs.geekylikes.models.language;
 
 import com.careerdevs.geekylikes.models.developer.Developer;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 @Entity
 public class Language {
     @Id
@@ -19,7 +26,7 @@ public class Language {
             joinColumns = @JoinColumn(name = "language_id"),
             inverseJoinColumns = @JoinColumn(name = "developer_id")
     )
-    Set<Developer> developers;
+    private Set<Developer> developers = new HashSet<>();
 
 
     public Language() {
@@ -53,5 +60,13 @@ public class Language {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public Set<Developer> getDevelopers() {
+        return developers;
+    }
+
+    public void setDevelopers(Set<Developer> developers) {
+        this.developers = developers;
     }
 }
