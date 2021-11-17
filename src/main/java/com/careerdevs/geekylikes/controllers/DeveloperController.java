@@ -44,7 +44,7 @@ public class DeveloperController {
     public Developer addLanguage(@RequestBody Developer updates) {
         Developer developer = repository.findById(updates.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        developer.languages.addAll(updates.languages);
+        developer.getLanguages().addAll(updates.getLanguages());
         return repository.save(developer);
     }
 
@@ -55,7 +55,7 @@ public class DeveloperController {
         if (updates.getName() != null) developer.setName(updates.getName());
         if (updates.getEmail() != null) developer.setEmail(updates.getEmail());
         if (updates.getCohort() != null) developer.setCohort(updates.getCohort());
-        if (updates.languages != null) developer.languages = updates.languages;
+        if (updates.getLanguages() != null) developer.setLanguages(updates.getLanguages());
 
         return repository.save(developer);
     }
