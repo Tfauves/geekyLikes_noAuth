@@ -1,7 +1,5 @@
 package com.careerdevs.geekylikes.models.avatar;
 
-
-import com.careerdevs.geekylikes.models.developer.Developer;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -19,14 +17,11 @@ public class Avatar {
     private Long id;
     private String url;
 
-    @OneToOne
-    private Developer developer;
-
     public Avatar() {}
 
-    public Avatar(String url, Developer developer) {
+    public Avatar(String url) {
         this.url = url;
-        this.developer = developer;
+
     }
 
     public Long getId() {
@@ -44,5 +39,5 @@ public class Avatar {
     public void setUrl(String url) {
         this.url = url;
     }
-    t
+
 }
