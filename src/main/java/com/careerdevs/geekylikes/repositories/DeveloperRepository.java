@@ -1,6 +1,6 @@
 package com.careerdevs.geekylikes.repositories;
 
-import com.careerdevs.geekylikes.models.Developer;
+import com.careerdevs.geekylikes.models.developer.Developer;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 

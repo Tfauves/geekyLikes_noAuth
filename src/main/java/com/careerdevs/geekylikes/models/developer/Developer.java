@@ -1,5 +1,8 @@
-package com.careerdevs.geekylikes.models;
+package com.careerdevs.geekylikes.models.developer;
 
+
+import com.careerdevs.geekylikes.models.geekout.Geekout;
+import com.careerdevs.geekylikes.models.language.Language;
 
 import javax.persistence.*;
 import java.util.List;

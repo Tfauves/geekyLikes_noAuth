@@ -1,6 +1,6 @@
 package com.careerdevs.geekylikes.repositories;
 
-import com.careerdevs.geekylikes.models.Geekout;
+import com.careerdevs.geekylikes.models.geekout.Geekout;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
