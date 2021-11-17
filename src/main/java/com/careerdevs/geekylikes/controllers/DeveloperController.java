@@ -1,6 +1,8 @@
 package com.careerdevs.geekylikes.controllers;
 
+import com.careerdevs.geekylikes.models.avatar.Avatar;
 import com.careerdevs.geekylikes.models.developer.Developer;
+import com.careerdevs.geekylikes.repositories.AvatarRepository;
 import com.careerdevs.geekylikes.repositories.DeveloperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -18,6 +20,8 @@ public class DeveloperController {
     @Autowired
     private DeveloperRepository repository;
 
+    @Autowired
+    private AvatarRepository avatarRepository;
 
     @GetMapping
     public @ResponseBody List<Developer> getDevelopers() {
@@ -40,6 +44,24 @@ public class DeveloperController {
         return new ResponseEntity<>(repository.save(newDeveloper), HttpStatus.CREATED);
     }
 
+    @PostMapping("/photo")
+    public Developer addPhoto(@RequestBody Developer dev) {
+        /*
+        {
+        "id": 1,
+        "avatar": {
+            "url": "www.example.com/pic.jpg"
+            }
+         }
+
+        */
+        Developer developer = repository.findById(dev.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        //check if developer has an avatar and if so, delete or modify existing avatar before creating new.
+        Avatar avatar = avatarRepository.save(developer.getAvatar());
+        developer.setAvatar(avatar);
+        return repository.save(developer);
+    }
+
     @PutMapping("/language")
     public Developer addLanguage(@RequestBody Developer updates) {
         Developer developer = repository.findById(updates.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -49,7 +71,7 @@ public class DeveloperController {
     }
 
     @PutMapping("/{id}")
-    public @ResponseBody Developer updateEmployee(@PathVariable Long id, @RequestBody Developer updates) {
+    public @ResponseBody Developer updateDeveloper(@PathVariable Long id, @RequestBody Developer updates) {
         Developer developer = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         if (updates.getName() != null) developer.setName(updates.getName());
@@ -62,7 +84,7 @@ public class DeveloperController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> destroyDev(@PathVariable Long id) {
+    public ResponseEntity<String> destroyDeveloper(@PathVariable Long id) {
         repository.deleteById(id);
         return new ResponseEntity<>("Deleted", HttpStatus.OK);
     }
