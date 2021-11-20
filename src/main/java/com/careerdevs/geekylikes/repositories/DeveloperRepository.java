@@ -10,4 +10,5 @@ import java.util.List;
 public interface DeveloperRepository extends JpaRepository<Developer, Long> {
 
      List<Developer> findAllByCohort(Integer cohort, Sort sort);
+     List<Developer> findAllByLanguages_id(Long id);
 }
