@@ -33,6 +33,11 @@ public class DeveloperController {
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("lang/{langId}")
+    public List<Developer> getDevsByLang(@PathVariable Long langId) {
+        return repository.findAllByLanguages_id(langId);
+    }
+
     @GetMapping("/cohort/{cohort}")
     public ResponseEntity<List<Developer>> getDevByCohort(@PathVariable Integer cohort) {
         return new ResponseEntity<>(repository.findAllByCohort(cohort, Sort.by("name")), HttpStatus.OK);
