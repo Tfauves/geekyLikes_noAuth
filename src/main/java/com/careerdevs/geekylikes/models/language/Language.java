@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
-)
+//
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id"
+//)
 @Entity
 public class Language {
     @Id
@@ -20,22 +20,22 @@ public class Language {
     private String name;
     private String tag;
 
-    @ManyToMany
-    @JoinTable(
-            name = "developer_language",
-            joinColumns = @JoinColumn(name = "language_id"),
-            inverseJoinColumns = @JoinColumn(name = "developer_id")
-    )
-    private Set<Developer> developers = new HashSet<>();
+//    @ManyToMany
+//    @JoinTable(
+//            name = "developer_language",
+//            joinColumns = @JoinColumn(name = "language_id"),
+//            inverseJoinColumns = @JoinColumn(name = "developer_id")
+//    )
+//    private Set<Developer> developers = new HashSet<>();
 
 
     public Language() {
     }
 
-    public Language(String name, String tag, Set<Developer> developers) {
+    public Language(String name, String tag) {
         this.name = name;
         this.tag = tag;
-        this.developers = developers;
+
     }
 
     public Long getId() {
@@ -62,11 +62,4 @@ public class Language {
         this.tag = tag;
     }
 
-    public Set<Developer> getDevelopers() {
-        return developers;
-    }
-
-    public void setDevelopers(Set<Developer> developers) {
-        this.developers = developers;
-    }
 }
