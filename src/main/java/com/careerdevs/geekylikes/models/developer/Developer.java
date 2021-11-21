@@ -18,7 +18,7 @@ import java.util.Set;
 //)
 
 @Entity
-public class -ADeveloper {
+public class Developer {
     @Id
     @GeneratedValue
     private Long id;
