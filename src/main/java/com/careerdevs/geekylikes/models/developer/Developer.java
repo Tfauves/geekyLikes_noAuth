@@ -1,9 +1,11 @@
 package com.careerdevs.geekylikes.models.developer;
 
+import com.careerdevs.geekylikes.models.approve.Approve;
 import com.careerdevs.geekylikes.models.avatar.Avatar;
 import com.careerdevs.geekylikes.models.geekout.Geekout;
 import com.careerdevs.geekylikes.models.language.Language;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -33,12 +35,16 @@ public class Developer {
 
     @ManyToMany
     @JoinTable(
-            name = "developer_id",
+            name = "developer_language",
             joinColumns = @JoinColumn(name = "developer_id"),
             inverseJoinColumns = @JoinColumn(name = "language_id")
     )
     @JsonIgnoreProperties("developers")
     private Set<Language> languages = new HashSet<>();
+
+    @OneToMany(mappedBy = "developer", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Approve> approvals;
 
     @OneToOne
     private Avatar avatar;

@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface GeekoutRepository extends JpaRepository<Geekout, Long> {
     List<Geekout> findByDeveloperId(Long id);
+    List<Geekout> findAllByApprovals_developer_id(Long id);
 
 }
