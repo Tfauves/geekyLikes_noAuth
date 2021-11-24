@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 import java.util.Set;
 
+@Entity
 public class Geekout {
 
     @Id
