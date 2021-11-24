@@ -23,6 +23,7 @@ public class Approve {
     private Geekout geekout;
 
     public Approve() {}
+
     public Approve(Developer developer, Geekout geekout) {
         this.developer = developer;
         this.geekout = geekout;

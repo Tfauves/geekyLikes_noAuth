@@ -2,8 +2,10 @@ package com.careerdevs.geekylikes.controllers;
 
 import com.careerdevs.geekylikes.models.avatar.Avatar;
 import com.careerdevs.geekylikes.models.developer.Developer;
+import com.careerdevs.geekylikes.models.geekout.Geekout;
 import com.careerdevs.geekylikes.repositories.AvatarRepository;
 import com.careerdevs.geekylikes.repositories.DeveloperRepository;
+import com.careerdevs.geekylikes.repositories.GeekoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,9 @@ public class DeveloperController {
     @Autowired
     private AvatarRepository avatarRepository;
 
+    @Autowired
+    GeekoutRepository geekoutRepository;
+
     @GetMapping
     public @ResponseBody List<Developer> getDevelopers() {
        return repository.findAll();
@@ -41,6 +46,11 @@ public class DeveloperController {
     @GetMapping("/cohort/{cohort}")
     public ResponseEntity<List<Developer>> getDevByCohort(@PathVariable Integer cohort) {
         return new ResponseEntity<>(repository.findAllByCohort(cohort, Sort.by("name")), HttpStatus.OK);
+    }
+
+    @GetMapping("/likes/{devId}")
+    public List<Geekout> getApproveGeekouts(@PathVariable Long devId) {
+        return geekoutRepository.findAllByApprovals_developer_id(devId);
     }
 
     @PostMapping
