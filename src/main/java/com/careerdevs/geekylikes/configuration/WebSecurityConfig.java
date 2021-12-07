@@ -1,5 +1,6 @@
 package com.careerdevs.geekylikes.configuration;
 
+import com.careerdevs.geekylikes.service.JwtUserDetailsService;
 import com.careerdevs.geekylikes.util.JwtAuthenticationEntryPoint;
 import com.careerdevs.geekylikes.util.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,27 +9,32 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private JwtUserDetailsService jwtUserDetailsService;
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder)
+        auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -39,6 +45,21 @@ public class WebSecurityConfig {
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-        return
+        return super.authenticationManagerBean();
     }
+
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        // disable csrf
+        httpSecurity.csrf().disable()
+                // do not want to authenticate this route
+                .authorizeRequests().antMatchers("/authenticate").permitAll()
+                // all other requests need to be autheticated
+                .anyRequest().authenticated().and()
+                // make sure we use stateless session
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
 }
